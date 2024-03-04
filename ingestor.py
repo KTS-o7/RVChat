@@ -15,12 +15,12 @@ def create_vector_database():
     loadedDocuments = pdfDirecLoader.load()
     print(len(loadedDocuments))
     
-    textSplitter = RecursiveCharacterTextSplitter(chunk_size=500,chunk_overlap=50)
+    textSplitter = RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=50)
     chunkedDocuments = textSplitter.split_documents(loadedDocuments)
     print(len(chunkedDocuments))
     print(type(chunkedDocuments))
     
-    ollama_embeddings = OllamaEmbeddings(model='mistral')
+    ollama_embeddings = OllamaEmbeddings(model='phi')
     
     vectorDB = Chroma.from_documents(documents=chunkedDocuments,embedding=ollama_embeddings,persist_directory="./data")
     
