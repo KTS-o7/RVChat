@@ -20,7 +20,7 @@ def create_vector_database():
     print(len(chunkedDocuments))
     print(type(chunkedDocuments))
     
-    ollama_embeddings = OllamaEmbeddings(model='phi')
+    ollama_embeddings = OllamaEmbeddings(model='phi',show_progress=True)
     
     vectorDB = Chroma.from_documents(documents=chunkedDocuments,embedding=ollama_embeddings,persist_directory="./data")
     
