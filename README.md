@@ -67,6 +67,11 @@ Set environment variables for the application
 in a `.env` file in the root directory of the application.
 We have provided an example environment file [here](./exampleEnv)
 
+```bash
+    touch .env
+    echo "ANONYMIZED_TELEMETRY=False" >> .env
+```
+
 ## 🎯 Usage
 
 > You need to keep the required pdfs in a folder called `files` in the root directory of the application.
@@ -86,7 +91,7 @@ OR
 If you want to chat with just one PDF file, you can run the following command:
 
 ```bash
-    chainlit run InstaChat.py
+    chainlit run InstantChat.py
 ```
 
 ## 📄 License

@@ -4,7 +4,7 @@ from langchain_community.document_loaders import PyPDFLoader
 
 from langchain.embeddings.ollama import OllamaEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores.chroma import Chroma
 from langchain.chains import (
     ConversationalRetrievalChain,
 )
@@ -13,10 +13,13 @@ from langchain_community.chat_models import ChatOllama
 from langchain.docstore.document import Document
 from langchain.memory import ChatMessageHistory, ConversationBufferMemory
 
-import chainlit as cl
 
-llmmodel = os.getenv("LLM_MODEL", "llama2")
-print(llmmodel)
+import chainlit as cl
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=".env",verbose=True)
+
+llm_model = os.getenv("LLM_MODEL", "gemma")
+print(f"LLM_MODEL value: {llm_model}")
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
 
@@ -49,14 +52,14 @@ async def on_chat_start():
         metadatas = [{"source": f"{i}-pl"} for i in range(len(texts))]
 
         # Create a Chroma vector store
-        embeddings = OllamaEmbeddings(temperature=0.3,top_k=20,show_progress=True, model=llmmodel)
+        embeddings = OllamaEmbeddings(temperature=0.3,top_k=20,show_progress=True, model=llm_model)
         docsearch = await cl.make_async(Chroma.from_texts)(
             texts, embeddings, metadatas=metadatas
         )
     elif file.type == "application/pdf":
         # Load the PDF file
         loader = PyPDFLoader(file.path)
-        embeddings = OllamaEmbeddings(temperature=0.3,top_k=20,show_progress=True, model=llmmodel)
+        embeddings = OllamaEmbeddings(temperature=0.3,top_k=20,show_progress=True, model=llm_model)
         
         # Extract the text content
         texts  = text_splitter.split_documents(loader.load())
@@ -83,15 +86,16 @@ async def on_chat_start():
 
     # Create a chain that uses the Chroma vector store
     chain = ConversationalRetrievalChain.from_llm(
-        ChatOllama(model_name=llmmodel, temperature=0.2, streaming=True),
+        ChatOllama(model_name=llm_model, temperature=0.2, streaming=True),
         chain_type="stuff",
         retriever=docsearch.as_retriever(),
         memory=memory,
         return_source_documents=True,
+        
     )
 
     # Let the user know that the system is ready
-    msg.content = f"Processing `{file.name}` done. You can now ask questions!"
+    msg.content = f"Processing `{file.name}` done. You can now ask questions! We are using the {llm_model} model."
     await msg.update()
 
     cl.user_session.set("chain", chain)
