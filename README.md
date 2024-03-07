@@ -8,7 +8,7 @@
 
 - [Installation](#💻-installation)
 - [Usage](#🎯-usage)
-- [License](#📄-license)
+- [License](./LICENSE)
 
 ## 💻 Installation
 
@@ -18,21 +18,21 @@
   - [Langchain](https://www.langchain.com/)
   - [Ollama](https://ollama.com/)
 
-  First we need to install Ollama into your system. You can do this by going to this [website](https://ollama.com/) and following the instructions provided there.
+First we need to install Ollama into your system. You can do this by going to this [website](https://ollama.com/) and following the instructions provided there.
 
-  Then start the Ollama server with the following command:
+Then start the Ollama server with the following command:
 
 ```bash
     sudo systemctl start ollama
 ```
 
-    Now, to check if the server is running, use the following command:
+Now, to check if the server is running, use the following command:
 
 ```bash
     sudo systemctl status ollama
 ```
 
-    Once the server is ready and running, we need to install the required models for the application. You can do this by running the following command:
+ Once the server is ready and running, we need to install the required models for the application. You can do this by running the following command:
 
 ```bash
     ollama pull <model_name>
