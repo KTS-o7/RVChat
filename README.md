@@ -32,7 +32,7 @@ Now, to check if the server is running, use the following command:
     sudo systemctl status ollama
 ```
 
- Once the server is ready and running, we need to install the required models for the application. You can do this by running the following command:
+Once the server is ready and running, we need to install the required models for the application. You can do this by running the following command:
 
 ```bash
     ollama pull <model_name>
@@ -93,6 +93,24 @@ If you want to chat with just one PDF file, you can run the following command:
 ```bash
     chainlit run InstantChat.py
 ```
+
+## Images :
+
+> ## Drag and Drop Interface
+>
+> <img src="./images/1InstantChat.png"/>
+
+> ## Select a Document
+>
+> <img src="./images/2SelectDoc.png"/>
+
+> ## Chat Interface
+>
+> <img src="./images/3RunQuery.png">
+
+> ## Output
+>
+> <img src="./images/4AnswerWithSource.png"/>
 
 ## 📄 License
 
