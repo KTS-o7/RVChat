@@ -7,3 +7,4 @@
 #LLM_MODEL = llama2
 # LLM_MODEL = phi
 LLM_MODEL = gemma
+GROQ_API_KEY = gsk-abcd
