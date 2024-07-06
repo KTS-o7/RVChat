@@ -1,6 +1,6 @@
 [project]
 # Whether to enable telemetry (default: true). No personal data is collected.
-enable_telemetry = true
+enable_telemetry = false
 
 
 # List of environment variables to be provided by each user to use the app.
@@ -10,7 +10,7 @@ user_env = []
 session_timeout = 3600
 
 # Enable third parties caching (e.g LangChain cache)
-cache = false
+cache = true
 
 # Authorized origins 
 allow_origins = ["*"]
