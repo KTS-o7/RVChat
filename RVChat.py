@@ -9,7 +9,6 @@ from langchain_community.embeddings import OllamaEmbeddings
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 from langchain_community.chat_models.ollama import ChatOllama
 from langchain.memory import ChatMessageHistory, ConversationBufferMemory
-from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 
 llmmodel = os.getenv("LLM_MODEL", "llama3")
 
