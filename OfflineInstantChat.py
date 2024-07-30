@@ -1,6 +1,7 @@
 import os
 import asyncio
 from typing import List
+import aiofiles
 from langchain_community.document_loaders import PyPDFLoader
 
 from langchain.embeddings.ollama import OllamaEmbeddings
@@ -46,7 +47,7 @@ async def on_chat_start():
         ).send()
     
     file = files[0]
-    msg = cl.Message(content=f"Processing `{file.name}`...", disable_feedback=True)
+    msg = cl.Message(content=f"Processing `{file.name}`...")
     await msg.send()
 
     if file.type == "text/plain":
@@ -68,7 +69,7 @@ async def on_chat_start():
     )
 
     chain = ConversationalRetrievalChain.from_llm(
-        ChatOllama(model_name=llm_model, temperature=0.2, streaming=True),
+        ChatOllama(model=llm_model, temperature=0.2, streaming=True),
         chain_type="stuff",
         retriever=docsearch.as_retriever(),
         memory=memory,
